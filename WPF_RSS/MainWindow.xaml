@@ -1,0 +1,47 @@
+﻿<Window x:Class="WPF_RSS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_RSS"
+        mc:Ignorable="d"
+        Title="{Binding Path=Title.Text}" Height="550" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Margin="5">
+            <StackPanel x:Name="feedContent" Orientation="Vertical">
+                
+                <DockPanel LastChildFill="False">
+                    <TextBlock Width="80">
+                        Введите URL:
+                    </TextBlock>
+                    <TextBox x:Name="url" Width="500"/>
+                    <Button x:Name="b_url" Content="Пуск" Click="Button_Click" Width="50"/>
+                </DockPanel>
+
+                <DockPanel LastChildFill="True">
+                    <ListBox x:Name="list" Height="390"  ItemsSource="{Binding}"
+                             HorizontalContentAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Stretch"
+                             SelectionChanged="OpenWeb"
+                             IsSynchronizedWithCurrentItem="False">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate >
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{Binding PublishDate.DateTime}" ContentStringFormat="dd MMM yyyy HH:mm"/>
+                                    <Label Content="{Binding Title.Text}"  ToolTip="{Binding Summary.Text}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+                
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>
